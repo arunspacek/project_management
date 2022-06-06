@@ -1,0 +1,20 @@
+{% extends 'projects/base.html' %}
+
+{% block title %}Task Detail{% endblock %}
+
+{% block content %}
+<div class="task-detail">
+	<p>Title: {{ task.title }}</p>
+	<p>Created on: <strong>{{ task.created }}</strong> Last updated: <strong>{{ task.updated }}</strong></p>
+	<p>Description: {{ task.description }}</p>
+</div>
+<div class="issues">
+	<h1><strong>Issues:</strong></h1>
+	<button class="btn btn-primary"><a href="{% url 'projects:create_issue' %}">Add Issue</a></button>
+	{% for issue in task.issue_set.all %}
+		<p>{{ issue.title }}</p>
+	{% empty %}
+		No issues at the moment.
+	{% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'projects/base.html' %}
+
+{% block title %}{{ company.name }}{% endblock %}
+
+{% block content %}
+<div class="company-detail">
+	<h1>Company: <strong>{{ company.name }}</strong></h1>
+	<hr>
+	<p><strong>Location:</strong> <li>{{ company.location }}</li></p>
+	<p><strong>Email:</strong> <li>{{ company.email }}</li></p>
+	<p><strong>Website:</strong> <li>{{ company.website }}</li></p>
+	<p><strong>About:</strong> <li> {{ company.about }}</li></p>
+</div>
+<div class="company-projects">
+	<h1><strong>Projects:</strong></h1>
+	<button class="btn btn-primary"><a href="{% url 'projects:create_project' %}">Create New Project</a></button>
+	{% for project in company.project_set.all %}
+		<p><a href="{{ project.get_absolute_url }}">{{ project.title }}</a></p>
+	{% empty %}
+		<p>There are no projects yet.</p>
+	{% endfor %}
+</div>
+{% endblock %}

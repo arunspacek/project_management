@@ -1,0 +1,5 @@
+<div class="company-list">
+	{% for company in companies %}
+		<p>Company: <a href="{{ company.get_absolute_url }}">{{ company.name }}</a></p>
+	{% endfor %}
+</div>

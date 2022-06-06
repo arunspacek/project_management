@@ -1,0 +1,38 @@
+{% extends 'projects/base.html' %}
+
+{% block title %}Project Details{% endblock %}
+
+{% block content %}
+<div class="project-detail">
+	<h1><strong>{{ project.title }}</strong> created by <strong>{{ project.company.name }}</strong></h1>
+	<hr>
+	<p><strong>Created on:</strong> <li>{{ project.created }}</li></p>
+	<p><strong>Description:</strong> <li>{{ project.description }}</li></p>
+	<p><strong>Budget:</strong> <li>${{ project.budget }}</li></p>
+	<p><strong>Deadline:</strong> <li>{{ project.deadline }}</li></p>
+	<p><strong>Employees:</strong></p>
+	{% with project.user.all as users %}
+	{% for user in users %}
+		<p><strong>{{ user.first_name }} {{ user.last_name }}</strong></p>
+	{% endfor %}
+	{% endwith %}
+</div>
+<div class="task-list">
+	<h1><strong>Tasks:</strong></h1>
+	<button class="btn btn-primary"><a href="{% url 'projects:create_task' %}">Create New Task</a></button>
+	{% for task in project.task_set.all %}
+		<p><a href="{{ task.get_absolute_url }}">{{ task.title }}</a></p>
+	{% empty %}
+		<p>There are no tasks yet.</p>
+	{% endfor %}
+</div>
+<div class="issues">
+	<h1><strong>Issues:</strong></h1>
+	<button class="btn btn-primary"><a href="{% url 'projects:create_issue' %}">Add Issue</a></button>
+	{% for issue in project.issue_set.all %}
+		<p>{{ issue.title }}</p>
+	{% empty %}
+		No issues at the moment.
+	{% endfor %}
+</div>
+{% endblock %}
